@@ -1,0 +1,26 @@
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata: 
+  name: nexus-custom-role
+rules: 
+  - apiGroups:
+    - security.openshift.io
+    resources: 
+    - securitycontextconstraints
+    resourceNames:
+    - allow-nexus-userid-200
+    verbs:
+    - use
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata: 
+  name: nexus-custom-rb
+subjects:
+  - kind: ServiceAccount
+    name: nexus-dev
+roleRef:
+  kind: Role
+  name: nexus-custom-role
+  apiGroup: rbac.authorization.k8s.io

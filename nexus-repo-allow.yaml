@@ -1,0 +1,45 @@
+allowHostPorts: false
+requiredDropCapabilities:
+  - MKNOD
+  - KILL
+  - MKNOD
+  - SETUID
+  - SETGID  
+allowPrivilegedContainer: false
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+readOnlyRootFilesystem: false
+allowHostPID: false
+allowHostNetwork: false
+allowPrivilegeEscalation: false
+allowedCapabilities: null
+defaultAddCapabilities: null
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: allow-nexus-userid-200
+fsGroup:
+  type: MustRunAs
+  ranges:
+    - max: 200
+      min: 200
+runAsUser:
+  type: MustRunAs
+  uid: 200
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: MustRunAs
+  ranges:
+    - max: 200
+      min: 200
+volumes:
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - hostPath
+  - persistentVolumeClaim
+  - projected
+  - secret
+seccompProfiles:
+  - runtime/default
